@@ -1,0 +1,89 @@
+/* Eliminando todos los padding y los margin que vienen por defecto */
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+// Configuracion general pages
+body {
+    background-color: #011640;
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+//Page intro
+video {
+    object-fit: cover;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.viewport-header {
+    position: relative;
+    min-height: 100vh;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    a {
+        text-decoration: none;
+    }
+
+    h1 {
+        font-family: 'Syncopate', sans-serif;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 3vw;
+        line-height: 1.2;
+        font-size: 3vw;
+        text-align: center;
+
+        span {
+            display: block;
+            font-size: 10vw;
+            letter-spacing: -1.3vw;
+        }
+
+        p {
+            display: block;
+            font-size: 2vw;
+            letter-spacing: 1.3vw;
+        }
+
+        .btn {
+            margin-top: 10px;
+            font-weight: 100;
+            font-size: 14px;
+            color: #fff;
+            background-color: #0066CC;
+            padding: 10px 30px;
+            border: solid #0066cc 5px;
+            box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+            border-radius: 50px;
+            transition: 1000ms;
+            transform: translateY(0);
+            cursor: pointer;
+
+            &:hover {
+                transition: 1000ms;
+                padding: 10px 60px;
+                transform: translateY(-0px);
+                background-color: #fff;
+                color: #000000;
+                border: solid 5px #0066cc;
+            }
+
+
+        }
+    }
+}
