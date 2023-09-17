@@ -44,6 +44,11 @@ let cantidadVideoJuegos = 0;
 //Variable para el valor total a pagar
 let cuentaTotal = 0;
 
+//Función para el saludo a la persona
+const sayHello = (name) =>
+    alert(`Bienvenido ${name} al simulador de compras de video juegos`);
+
+
 //Función para evaluar un si o no
 const answer = (message) => {
     let answerR = prompt(message).toLowerCase()
@@ -60,6 +65,9 @@ const amountGames = (price, totalGames) => {
 const aplicarDescuento = (totalCompra, descuento) => {
     return (1 - (descuento / 100)) * totalCompra
 }
+
+//Saludo persona
+sayHello(prompt("Bienvenid@ por favor ingresa tu nombre:"));
 //Primera impresión de los datotos de los video juegos disponibles
 console.log("El día de hoy comprarás un par de video juegos, debes escribir la cantidad de los que deseas de cada uno")
 console.log("A continuación tienes la lista de video juegos, puedes revisar para ya comprar en un momento")
