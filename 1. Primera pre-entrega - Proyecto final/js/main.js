@@ -48,7 +48,6 @@ let cuentaTotal = 0;
 const sayHello = (name) =>
     alert(`Bienvenido ${name} al simulador de compras de video juegos`);
 
-
 //Función para evaluar un si o no
 const answer = (message) => {
     let answerR = prompt(message).toLowerCase()
