@@ -1,3 +1,4 @@
+//Se quiere hacer una tienda de video juegos online
 //Data Video Games Info
 const videoGamesData = [
     {
@@ -5,7 +6,6 @@ const videoGamesData = [
         platforms: "PC,PS5",
         price: 10.00,
         category: "MMORPG",
-
     },
     {
         name: "Beyond Good & Evil 2",
@@ -39,7 +39,7 @@ const videoGamesData = [
     },
 ];
 
-//Varialbe para la cantidad de Video Juegos Comprados
+//Variable para la cantidad de Video Juegos Comprados
 let cantidadVideoJuegos = 0;
 //Variable para el valor total a pagar
 let cuentaTotal = 0;
@@ -50,7 +50,7 @@ const answer = (message) => {
     return answerR == "si" || answerR == "yes";
 }
 
-//Función para calcular de los juegos por cada Video Juego
+//Función para calcular el valor por el total del mismo video juego dependieno de su cantidad
 const amountGames = (price, totalGames) => {
     cantidadVideoJuegos += totalGames
     cuentaTotal += price * totalGames
@@ -60,11 +60,11 @@ const amountGames = (price, totalGames) => {
 const aplicarDescuento = (totalCompra, descuento) => {
     return (1 - (descuento / 100)) * totalCompra
 }
-
+//Primera impresión de los datotos de los video juegos disponibles
 console.log("El día de hoy comprarás un par de video juegos, debes escribir la cantidad de los que deseas de cada uno")
 console.log("A continuación tienes la lista de video juegos, puedes revisar para ya comprar en un momento")
 
-// Iterar sobre el array videoGamesData y mostrar la información de cada cideo juego
+// Iterar sobre el array videoGamesData y mostrar la información de cada video juego
 for (let i = 0; i < videoGamesData.length; i++) {
     const videoGame = videoGamesData[i];
     console.log(`Video Game: ${i + 1}`);
@@ -104,7 +104,7 @@ if (cantidadVideoJuegos >= 10) {
     cuentaTotal = aplicarDescuento(cuentaTotal, 0)
 }
 
-//Impresión de Resultado por medio de alert
+//Impresión del resultado por medio de alert
 alert(`La cantidad total de video juegos comprados es: ${cantidadVideoJuegos}`)
 alert(`La cantidad total a pagar por los video juegos es: $ ${cuentaTotal.toFixed(3)}`)
 
