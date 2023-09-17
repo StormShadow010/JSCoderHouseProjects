@@ -87,21 +87,22 @@ while (amount) {
     }
     //Evaluar si quiere seguir comprando el usuario
     amount = answer("¿Quisieras seguir agregando al carrito? (Si o No)")
-}
-
-//Calcular descuento según la cantidad de VideoGames
-if (cantidadVideoJuegos >= 10) {
-    alert("Debido a que compraste más de 10 juegos se te dará un descuento del 10%")
-    cuentaTotal = aplicarDescuento(cuentaTotal, 10)
-} else if (cantidadVideoJuegos > 5 && cantidadVideoJuegos < 10) {
-    alert("Debido a que compraste más de 5 juegos y menor a 10 juegos se te dará un descuento del 5%")
-    cuentaTotal = aplicarDescuento(cuentaTotal, 5)
-} else if (cantidadVideoJuegos >= 2 && cantidadVideoJuegos <= 5) {
-    alert("Debido a que compraste más de 5 juegos y menor a 10 juegos se te dará un descuento del 2%")
-    cuentaTotal = aplicarDescuento(cuentaTotal, 2)
-} else {
-    alert("Debido a que no compraste más de 2 juegos, no lograste obtener descuento ")
-    cuentaTotal = aplicarDescuento(cuentaTotal, 0)
+    if (amount === false) {
+        //Calcular descuento según la cantidad de VideoGames
+        if (cantidadVideoJuegos >= 10) {
+            alert("Debido a que compraste más de 10 juegos se te dará un descuento del 10%")
+            cuentaTotal = aplicarDescuento(cuentaTotal, 10)
+        } else if (cantidadVideoJuegos > 5 && cantidadVideoJuegos < 10) {
+            alert("Debido a que compraste más de 5 juegos y menor a 10 juegos se te dará un descuento del 5%")
+            cuentaTotal = aplicarDescuento(cuentaTotal, 5)
+        } else if (cantidadVideoJuegos >= 2 && cantidadVideoJuegos <= 5) {
+            alert("Debido a que compraste más de 5 juegos y menor a 10 juegos se te dará un descuento del 2%")
+            cuentaTotal = aplicarDescuento(cuentaTotal, 2)
+        } else {
+            alert("Debido a que no compraste más de 2 juegos, no lograste obtener descuento ")
+            cuentaTotal = aplicarDescuento(cuentaTotal, 0)
+        }
+    }
 }
 
 //Impresión del resultado por medio de alert
