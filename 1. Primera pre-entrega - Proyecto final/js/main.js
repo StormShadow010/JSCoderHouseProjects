@@ -50,7 +50,7 @@ const answer = (message) => {
     return answerR == "si" || answerR == "yes";
 }
 
-//Función para calcular el valor por el total del mismo video juego dependieno de su cantidad
+//Función para calcular el valor por el total del mismo video juego dependiendo de su cantidad
 const amountGames = (price, totalGames) => {
     cantidadVideoJuegos += totalGames
     cuentaTotal += price * totalGames
