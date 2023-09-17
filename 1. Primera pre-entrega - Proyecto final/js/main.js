@@ -87,6 +87,7 @@ while (amount) {
     }
     //Evaluar si quiere seguir comprando el usuario
     amount = answer("¿Quisieras seguir agregando al carrito? (Si o No)")
+    //Despues de comprados los video juegos se evalua un descuento por la cantidad de los mismos
     if (amount === false) {
         //Calcular descuento según la cantidad de VideoGames
         if (cantidadVideoJuegos >= 10) {
