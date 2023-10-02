@@ -1,5 +1,8 @@
 //Se quiere hacer una tienda de video juegos online
-
+//Variable para la cantidad de Video Juegos Comprados
+let cantidadVideoJuegos = 0;
+//Variable para el valor total a pagar
+let cuentaTotal = 0;
 //Productos iniciales en la tienda, en el arra videoGamesData
 const videoGamesData = [
     {
@@ -80,13 +83,32 @@ const addProduct = () => {
 
 //Read
 //Filtrar un video juego (Administrador), esto se hará en una espacio de busqueda
-const findProducts = () => {
+//Por palabra
+const findProductsWord = () => {
     //Palabra clave para mostrar video juegos
     let keyWord = prompt("Ingresa una palabra del video juego que deseas buscar").trim().toUpperCase()
     //Video juegos relacionados con la palabra clave
     let resultGames = videoGamesData.filter((game) => game.name.toUpperCase().includes(keyWord))
     //Validar las coincidencias
     resultGames.length > 0 ? console.table(resultGames) : alert("No se encontro ninguna coincidencia con: " + keyWord)
+}
+
+const findProductsIndex = () => {
+    //Información del juego por indice array
+    let videoGameInfo = []
+    //Mostrar los video juegos
+    console.table(videoGamesData)
+    //Indice del video juego a eliminar
+    let keyIndex = parseInt(prompt("Ingresa un index del video juego que desees eliminar"))
+    //Validar el indice
+    if (keyIndex > -1 && keyIndex < videoGamesData.length) {
+        //Obtener los valores de la posición de data especifica en el array
+        for (const value of Object.values(videoGamesData[keyIndex])) {
+            videoGameInfo.push(value)
+        }
+        //Imprimir la información del video juego
+        console.log(videoGameInfo.join(" - "))
+    }
 }
 
 //Update - aún falta
@@ -110,6 +132,75 @@ const deleteProducts = () => {
 }
 
 
+// Función para mostrar los video juegos en el momento que se necesite
+const showVideoGames = () => {
+    // Iterar sobre el array videoGamesData y mostrar la información de cada video juego
+    for (let i = 0; i < videoGamesData.length; i++) {
+        const videoGame = videoGamesData[i];
+        console.log(`Video Game: ${i + 1}`);
+        console.log(`Name: ${videoGame.name}`);
+        console.log(`Platforms: ${videoGame.platforms}`);
+        console.log(`Price: $${videoGame.price}`);
+        console.log(`Category: ${videoGame.category}`);
+        console.log('-------------------');
+    }
+}
+
+//Función para evaluar un si o no
+const answer = (message) => {
+    let answerR = prompt(message).toLowerCase()
+    return answerR == "si" || answerR == "yes";
+}
+
+//Función para calcular el valor por el total del mismo video juego dependiendo de su cantidad
+const amountGames = (price, totalGames) => {
+    cantidadVideoJuegos += totalGames
+    cuentaTotal += price * totalGames
+}
+
+//Función para calcular el descuento de la compra
+const aplicarDescuento = (totalCompra, descuento) => {
+    return (1 - (descuento / 100)) * totalCompra
+}
+
+//Función para la compra de los video juegos
+const buyVideoGames = () => {
+    let amount = answer("Ahora nos dirás la cantidad que quieres de cada uno de los juegos mostrados, responde (Si o No)")
+    //Evaluar la cantidad de juegos por cada item posible
+    while (amount) {
+        // Iterar sobre el array de la data y mostrar la información de cada uno
+        for (let i = 0; i < videoGamesData.length; i++) {
+            const videoGame = videoGamesData[i];
+            alert(`Video juego Nro: ${i + 1}`);
+            let amountVideoGame = parseInt(prompt(`Digital la cantidad Video juego Nro  ${i + 1}:`))
+            amountGames(parseFloat(videoGame.price), amountVideoGame)
+        }
+        //Evaluar si quiere seguir comprando el usuario
+        amount = answer("¿Quisieras seguir agregando al carrito? (Si o No)")
+        //Despues de comprados los video juegos se evalua un descuento por la cantidad de los mismos
+        if (amount === false) {
+            //Calcular descuento según la cantidad de VideoGames
+            if (cantidadVideoJuegos >= 10) {
+                alert("Debido a que compraste más de 10 juegos se te dará un descuento del 10%")
+                cuentaTotal = aplicarDescuento(cuentaTotal, 10)
+            } else if (cantidadVideoJuegos > 5 && cantidadVideoJuegos < 10) {
+                alert("Debido a que compraste más de 5 juegos y menor a 10 juegos se te dará un descuento del 5%")
+                cuentaTotal = aplicarDescuento(cuentaTotal, 5)
+            } else if (cantidadVideoJuegos >= 2 && cantidadVideoJuegos <= 5) {
+                alert("Debido a que compraste más de 5 juegos y menor a 10 juegos se te dará un descuento del 2%")
+                cuentaTotal = aplicarDescuento(cuentaTotal, 2)
+            } else {
+                alert("Debido a que no compraste más de 2 juegos, no lograste obtener descuento ")
+                cuentaTotal = aplicarDescuento(cuentaTotal, 0)
+            }
+        }
+    }
+    //Impresión del resultado por medio de alert
+    alert(`La cantidad total de video juegos comprados es: ${cantidadVideoJuegos}`)
+    alert(`La cantidad total a pagar por los video juegos es: $ ${cuentaTotal.toFixed(3)}`)
+}
+
+
 //Saludo persona
 sayHello(prompt("Bienvenid@ por favor ingresa tu nombre:"));
 //Primera impresión de los datotos de los video juegos disponibles
@@ -118,3 +209,6 @@ console.log("A continuación tienes la lista de video juegos, puedes revisar par
 
 //Mostrar los productos iniciales en una tabla
 console.table(videoGamesData)
+//Mostrar el total de productos en el momento que se desee
+showVideoGames()
+buyVideoGames()
