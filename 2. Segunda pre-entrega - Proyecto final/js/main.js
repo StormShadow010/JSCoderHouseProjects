@@ -211,4 +211,5 @@ console.log("A continuación tienes la lista de video juegos, puedes revisar par
 console.table(videoGamesData)
 //Mostrar el total de productos en el momento que se desee
 showVideoGames()
+//Simular la compra
 buyVideoGames()
