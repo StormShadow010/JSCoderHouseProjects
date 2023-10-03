@@ -10,36 +10,42 @@ const videoGamesData = [
         platforms: "PC,PS5",
         price: 10.50,
         category: "MMORPG",
+        dateRegistered: new Date("10/1/22"),
     },
     {
         name: "Beyond Good & Evil 2",
         platforms: "PC,PS4,XboxOne",
         price: 22.22,
         category: "Action Adventure/Open World",
+        dateRegistered: new Date("10/1/22"),
     },
     {
         name: "Star Citizen",
         platforms: "PC",
         price: 50.45,
         category: "Action / Space Simulator",
+        dateRegistered: new Date("10/1/22"),
     },
     {
         name: "Granblue Fantasy: Relink",
         platforms: "PC,PS4,PS5",
         price: 20.36,
         category: "Action-RPG",
+        dateRegistered: new Date("10/2/22"),
     },
     {
         name: "Grand Theft Auto VI",
         platforms: "PC,PS4,PS5,XboxOne,XSX",
         price: 85.99,
         category: "Open world / GTA type",
+        dateRegistered: new Date("10/2/22"),
     },
     {
         name: "Final Fantasy XVI",
         platforms: "PC,PS5",
         price: 12.05,
         category: "JRPG / Rol",
+        dateRegistered: new Date("10/2/22"),
     },
 ];
 
@@ -69,11 +75,12 @@ const addProduct = () => {
         platforms: platformsNew,
         price: parseFloat(priceNew),
         category: categoryNew,
+        dateRegistered: new Date(),
     };
 
-    // Verificar que no exista el video juego
-    if (videoGamesData.some((itemGame) => itemGame.name === newGame.name)) {
-        alert("El producto ya existe")
+    // Verificar que no exista el video juego por nombre
+    if (videoGamesData.some((itemGame) => itemGame.name.toLowerCase() === newGame.name.toLowerCase())) {
+        alert("El producto ya existe 👏")
     } else {
         alert("El producto fue añadido exitosamente 😊 ")
         videoGamesData.push(newGame)
@@ -96,10 +103,8 @@ const findProductsWord = () => {
 const findProductsIndex = () => {
     //Información del juego por indice array
     let videoGameInfo = []
-    //Mostrar los video juegos
-    console.table(videoGamesData)
     //Indice del video juego a eliminar
-    let keyIndex = parseInt(prompt("Ingresa un index del video juego que desees eliminar"))
+    let keyIndex = parseInt(prompt(`Ingresa un indice entre 0 - ${videoGamesData.length - 1} correspondiente al video juego que desees buscar`))
     //Validar el indice
     if (keyIndex > -1 && keyIndex < videoGamesData.length) {
         //Obtener los valores de la posición de data especifica en el array
@@ -109,6 +114,7 @@ const findProductsIndex = () => {
         //Imprimir la información del video juego
         console.log(videoGameInfo.join(" - "))
     }
+    return;
 }
 
 //Update - aún falta
@@ -120,7 +126,7 @@ const deleteProducts = () => {
     //Mostrar los video juegos
     console.table(videoGamesData)
     //Indice del video juego a eliminar
-    let keyIndex = parseInt(prompt("Ingresa un index del video juego que desees eliminar"))
+    let keyIndex = parseInt(prompt(`Ingresa un indice entre 0 - ${videoGamesData.length - 1} correspondiente al video juego que desees eliminar`))
     //Validar el indice
     if (keyIndex > -1 && keyIndex < videoGamesData.length) {
         videoGamesData.splice(keyIndex, 1)
@@ -172,7 +178,7 @@ const buyVideoGames = () => {
         for (let i = 0; i < videoGamesData.length; i++) {
             const videoGame = videoGamesData[i];
             alert(`Video juego Nro: ${i + 1}`);
-            let amountVideoGame = parseInt(prompt(`Digital la cantidad Video juego Nro  ${i + 1}:`))
+            let amountVideoGame = parseInt(prompt(`Digita la cantidad del Video juego Nro  ${i + 1}:`))
             amountGames(parseFloat(videoGame.price), amountVideoGame)
         }
         //Evaluar si quiere seguir comprando el usuario
@@ -199,7 +205,6 @@ const buyVideoGames = () => {
     alert(`La cantidad total de video juegos comprados es: ${cantidadVideoJuegos}`)
     alert(`La cantidad total a pagar por los video juegos es: $ ${cuentaTotal.toFixed(3)}`)
 }
-
 
 //Saludo persona
 sayHello(prompt("Bienvenid@ por favor ingresa tu nombre:"));
