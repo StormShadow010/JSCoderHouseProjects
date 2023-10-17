@@ -1,0 +1,46 @@
+@use 'intro';
+@use 'products';
+
+/* Fuente Roboto */
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+// Variables
+$color-mainbackground: #011640;
+$color-secondarybackground: #010D26;
+$color-titlebackground: #F26938;
+
+/* Eliminando todos los padding y los margin que vienen por defecto */
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+// Configuracion general pages
+body {
+    background-color: #001E6C;
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    margin-top: auto;
+}
+
+footer,
+.navbar {
+    background-color: $color-secondarybackground;
+
+}
+
+
+.navbar-title {
+    font-size: 22px;
+    font-family: 'Roboto';
+    font-weight: bold;
+}

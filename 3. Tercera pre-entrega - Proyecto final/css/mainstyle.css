@@ -1,0 +1,253 @@
+/* Fuente Roboto */
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+video {
+  object-fit: cover;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.viewport-header {
+  position: relative;
+  min-height: 100vh;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.viewport-header a {
+  text-decoration: none;
+}
+.viewport-header h1 {
+  font-family: "Syncopate", sans-serif;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 3vw;
+  line-height: 1.2;
+  font-size: 3vw;
+  text-align: center;
+}
+.viewport-header h1 span {
+  display: block;
+  font-size: 10vw;
+  letter-spacing: -1.3vw;
+}
+.viewport-header h1 p {
+  display: block;
+  font-size: 2vw;
+  letter-spacing: 1.3vw;
+}
+.viewport-header h1 .btn {
+  margin-top: 10px;
+  font-weight: 100;
+  font-size: 14px;
+  color: #fff;
+  background-color: #0066CC;
+  padding: 10px 30px;
+  border: solid #0066cc 5px;
+  box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+  border-radius: 50px;
+  transition: 1000ms;
+  transform: translateY(0);
+  cursor: pointer;
+}
+.viewport-header h1 .btn:hover {
+  transition: 1000ms;
+  padding: 10px 60px;
+  transform: translateY(0px);
+  background-color: #fff;
+  color: #000000;
+  border: solid 5px #0066cc;
+}
+
+.container2 {
+  position: relative;
+  margin: auto;
+  top: 100px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.container2 .search {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 80px;
+  height: 80px;
+  background: crimson;
+  border-radius: 50%;
+  transition: all 1s;
+  z-index: 4;
+  box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.4);
+}
+.container2 .search:hover {
+  cursor: pointer;
+}
+.container2 .search::before {
+  content: "";
+  position: absolute;
+  margin: auto;
+  top: 22px;
+  right: 0;
+  bottom: 0;
+  left: 22px;
+  width: 12px;
+  height: 2px;
+  background: white;
+  transform: rotate(45deg);
+  transition: all 0.5s;
+}
+.container2 .search::after {
+  content: "";
+  position: absolute;
+  margin: auto;
+  top: -5px;
+  right: 0;
+  bottom: 0;
+  left: -5px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 2px solid white;
+  transition: all 0.5s;
+}
+.container2 input {
+  font-family: "Inconsolata", monospace;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 50px;
+  outline: none;
+  border: none;
+  background: crimson;
+  color: white;
+  text-shadow: 0 0 10px crimson;
+  padding: 0 80px 0 20px;
+  border-radius: 30px;
+  box-shadow: 0 0 25px 0 crimson, 0 20px 25px 0 rgba(0, 0, 0, 0.2);
+  transition: all 1s;
+  opacity: 0;
+  z-index: 5;
+  font-weight: bolder;
+  letter-spacing: 0.1em;
+}
+.container2 input:hover {
+  cursor: pointer;
+}
+.container2 input:focus {
+  width: 300px;
+  opacity: 1;
+  cursor: text;
+}
+.container2 input:focus ~ .search {
+  right: -250px;
+  background: #151515;
+  z-index: 6;
+}
+.container2 input:focus ~ .search::before {
+  top: 0;
+  left: 0;
+  width: 25px;
+}
+.container2 input:focus ~ .search::after {
+  top: 0;
+  left: 0;
+  width: 25px;
+  height: 2px;
+  border: none;
+  background: white;
+  border-radius: 0%;
+  transform: rotate(-45deg);
+}
+.container2 input::placeholder {
+  color: white;
+  opacity: 0.5;
+  font-weight: bolder;
+}
+
+.mainContainer {
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.mainContainer .products {
+  margin-top: 30px;
+  color: white;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-gap: 30px;
+  grid-row-gap: 30px;
+  width: 100%;
+  transition: 0.3s;
+}
+.mainContainer .products .card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+  padding: 5px;
+  max-width: 300px;
+  background-color: #FFAA4C;
+}
+.mainContainer .products .card .imageGame {
+  width: 100%;
+}
+.mainContainer .products .card .nameGame {
+  margin-top: 5px;
+  font-size: 25px;
+}
+.mainContainer .products .card .addCarGame {
+  border-radius: 20px;
+  width: 100%;
+}
+
+#searchInput {
+  border-radius: 20px;
+  width: 200px;
+}
+
+/* Eliminando todos los padding y los margin que vienen por defecto */
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #001E6C;
+  font-family: "Roboto", sans-serif;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  margin-top: auto;
+}
+
+footer,
+.navbar {
+  background-color: #010D26;
+}
+
+.navbar-title {
+  font-size: 22px;
+  font-family: "Roboto";
+  font-weight: bold;
+}
+
+/*# sourceMappingURL=mainstyle.css.map */
