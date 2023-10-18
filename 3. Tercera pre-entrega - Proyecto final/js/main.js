@@ -50,12 +50,77 @@ const videoGamesData = [
     },
 ];
 
-//Función para mostrar productos acorde a un array
-const showProducts = (data) => {
+
+//CRUD
+
+//-----Create-----
+//Función para agregar nuevos productos
+const addNewProduct = () => {
+    //Formulario de la creación del nuevo producto
+    let createdGame = document.getElementById("createdGame")
+
+    createdGame.addEventListener("submit", function (event) {
+        // Evita que el formulario se envíe de forma predeterminada
+        event.preventDefault();
+        //Variables del nuevo video juego
+        let nameNew = document.getElementById("nameNewGame").value.trim()
+        let platformsNew = document.getElementById("platformsNewGame").value.trim()
+        let priceNew = parseFloat(document.getElementById("priceNewGame").value)
+        let categoryNew = document.getElementById("categoryNewGame").value.trim()
+
+        if (nameNew === "" || platformsNew === "" || isNaN(priceNew) || categoryNew === "") {
+            alert("Por favor ingresa valores validos")
+        }
+        //Traer el último elemento de la data para obtener el ID
+        const lastElement = videoGamesData[videoGamesData.length - 1]
+        //Objecto del nuevo video juegos
+        const newGame = {
+            id: lastElement.id + 1,
+            name: nameNew,
+            platforms: platformsNew,
+            price: parseFloat(priceNew),
+            category: categoryNew,
+            dateRegistered: new Date(),
+        };
+        // Verificar que no exista el video juego por nombre
+        if (videoGamesData.some((itemGame) => itemGame.name.toLowerCase() === newGame.name.toLowerCase())) {
+            alert("El producto ya existe 👏")
+        } else {
+            videoGamesData.push(newGame)
+            //Agregamos el nuevo video juegos en el localStorage
+            localStorage.setItem('dataVideoGames', JSON.stringify(videoGamesData));
+            //Mostrar los nuevos productos
+            showProducts()
+            alert("El producto fue añadido exitosamente 😊 ")
+        }
+        setTimeout(() => {
+            createdGame.reset();
+        }, 5000);
+    })
+}
+
+//-----Read-----
+//Buscar productos por medio de un input
+const searchProduct = document.getElementById("searchInput")
+searchProduct.addEventListener('keyup', e => {
+    e.target.matches('#searchInput') && (
+        document.querySelectorAll('.card').forEach(game => {
+            const titleGame = game.querySelector('.nameGame')
+            titleGame.textContent.toLowerCase().includes(e.target.value.toLowerCase()) ? game.style.display = 'flex' : game.style.display = 'none'
+        })
+    )
+})
+//Función para mostrar productos
+const showProducts = () => {
+    //Traer la data del localStorage
+    const gamesData = JSON.parse(localStorage.getItem('dataVideoGames'))
+    console.log(gamesData)
     //Contenedor donde se verán  los productos
     const mainProducts = document.querySelector(".products")
+    //Cada vez que se creen nuevos se vacia el contenedor
+    mainProducts.innerHTML = "";
 
-    for (const game of data) {
+    for (const game of gamesData) {
         //Card de  cada producto
         const card = document.createElement("div");
         card.classList.add('card');
@@ -96,32 +161,69 @@ const showProducts = (data) => {
         addCarGame.textContent = "Add";
         card.appendChild(addCarGame);
 
+        //Borrar Video Juego
+        const deleteGame = document.createElement("button")
+        deleteGame.classList.add('deleteGame');
+        deleteGame.textContent = "Delete";
+        deleteGame.addEventListener('click', deleteVideoGame);
+        card.appendChild(deleteGame);
+
         //Agregar al contenedor que guarda los video juegos
         mainProducts.appendChild(card);
     }
 
 }
-//Primero mostrar los productos
-showProducts(videoGamesData)
 
-//Buscar productos por medio de un inpu
-const searchProduct = document.getElementById("searchInput")
+//-----Update----- aún falta
 
-searchProduct.addEventListener('keyup', e => {
-    e.target.matches('#searchInput') && (
-        document.querySelectorAll('.card').forEach(game => {
-            const titleGame = game.querySelector('.nameGame')
-            titleGame.textContent.toLowerCase().includes(e.target.value.toLowerCase()) ? game.style.display = 'flex' : game.style.display = 'none'
-        })
-    )
+
+//-----Delete-----
+const deleteVideoGame = (e) => {
+    //Evento del Botón
+    const button = e.target;
+    //Traer la card padre
+    const item = button.parentElement;
+    //Traer el nombre del video juego
+    const nameGameData = item.querySelector('.nameGame').textContent.trim().toLowerCase();
+    //Indice del elemento a eliminar
+    const resultadoIndex = videoGamesData.findIndex((game) => game.name.toLowerCase() === nameGameData);
+    //Verificar que sea un indice valido
+    if (resultadoIndex != -1) {
+        //Borrar el video juego
+        videoGamesData.splice(resultadoIndex, 1);
+        //Actualizar el Local Storage
+        localStorage.setItem('dataVideoGames', JSON.stringify(videoGamesData));
+        //Mostrar los productos restantes
+        showProducts()
+    }
+}
+
+
+//Botón para la creación de un nuevo video juego
+const createButton = document.getElementById("createnewGame")
+createButton.addEventListener("click", e => {
+    addNewProduct()
 })
 
 
-//Agregar productos al carrito
-document.querySelectorAll('.addCarGame').forEach(buttonGame => {
-    buttonGame.addEventListener('click', e => {
-        var button = e.target;
-        var item = button.parentElement;
-        console.log(item)
-    })
-})
+//Función para iniciar elementos de la página 
+const starShop = () => {
+    //Agregamos los Video Juegos por defecto en el localStorage
+    localStorage.setItem('dataVideoGames', JSON.stringify(videoGamesData));
+    //Primero mostrar los productos
+    showProducts()
+}
+
+//Espermos que todos los elementos de la página cargen para ejecutar el script
+if (document.readyState == 'loading') {
+    document.addEventListener('DOMContentLoaded', starShop)
+} else {
+    starShop();
+}
+
+
+
+//Posibles tareas
+/*
+1. Apartir del local mostrar las card
+*/

@@ -217,6 +217,10 @@ video {
   width: 200px;
 }
 
+.addProduct {
+  margin-top: 20px;
+}
+
 /* Eliminando todos los padding y los margin que vienen por defecto */
 * {
   margin: 0;
