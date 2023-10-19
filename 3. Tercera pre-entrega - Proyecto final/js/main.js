@@ -1,3 +1,11 @@
+//Se quiere hacer una tienda de video juegos online
+//Variable para la cantidad de Video Juegos Comprados
+let cantidadVideoJuegos = 0;
+//Variable para el valor total a pagar
+let cuentaTotal = 0;
+
+const listshopping = []
+
 //Productos iniciales en la tienda, en el arraglo videoGamesData
 const videoGamesData = [
     {
@@ -114,7 +122,6 @@ searchProduct.addEventListener('keyup', e => {
 const showProducts = () => {
     //Traer la data del localStorage
     const gamesData = JSON.parse(localStorage.getItem('dataVideoGames'))
-    console.log(gamesData)
     //Contenedor donde se verán  los productos
     const mainProducts = document.querySelector(".products")
     //Cada vez que se creen nuevos se vacia el contenedor
@@ -155,17 +162,28 @@ const showProducts = () => {
         categoryGame.textContent = game?.category;
         card.appendChild(categoryGame);
 
+        // let contenedor = document.createElement("div");
+        // contenedor.classList.add('addCarGameContainer');
+        // contenedor.innerHTML = `<p> Add</p>
+        // <i class="fa-solid fa-magnifying-glass" style="color: #001E6C;"></i>`;
+
         //Agregar al carrito Video Juego
         const addCarGame = document.createElement("button")
         addCarGame.classList.add('addCarGame');
         addCarGame.textContent = "Add";
+        addCarGame.addEventListener('click', addCarGameHandler) //
+        //addCarGame.appendChild(contenedor)
         card.appendChild(addCarGame);
 
-        //Borrar Video Juego
+        // let contenedor2 = document.createElement("div");
+        // contenedor2.innerHTML = `<p> Delete </p>
+        // <i class="fa-solid fa-trash" style="color: #001E6C;"></i>`;
+        // //Borrar Video Juego
         const deleteGame = document.createElement("button")
         deleteGame.classList.add('deleteGame');
         deleteGame.textContent = "Delete";
         deleteGame.addEventListener('click', deleteVideoGame);
+        //deleteGame.appendChild(contenedor2);
         card.appendChild(deleteGame);
 
         //Agregar al contenedor que guarda los video juegos
@@ -191,6 +209,7 @@ const deleteVideoGame = (e) => {
     if (resultadoIndex != -1) {
         //Borrar el video juego
         videoGamesData.splice(resultadoIndex, 1);
+        alert("El producto fue eliminado exitosamente 😊 ")
         //Actualizar el Local Storage
         localStorage.setItem('dataVideoGames', JSON.stringify(videoGamesData));
         //Mostrar los productos restantes
@@ -199,12 +218,127 @@ const deleteVideoGame = (e) => {
 }
 
 
+
+//Función para agregar al carrito
+const addCarGameHandler = (e) => {
+    //Evento del Botón
+    const button = e.target;
+    //Traer la card padre
+    const item = button.parentElement;
+    //Traer el nombre del video juego
+    const nameGameData = item.querySelector('.nameGame').textContent.trim().toLowerCase();
+    //Indice del elemento a añadir al carrio
+    const elementGame = videoGamesData.find((game) => game.name.toLowerCase() === nameGameData);
+
+    if (elementGame) {
+        listshopping.push(elementGame)
+        localStorage.setItem('shoppingGames', JSON.stringify(listshopping));
+        createTable()
+    } else {
+        countElementCart()
+    }
+}
+
 //Botón para la creación de un nuevo video juego
 const createButton = document.getElementById("createnewGame")
 createButton.addEventListener("click", e => {
     addNewProduct()
 })
 
+
+//Función para mostrar la compra
+function createTable() {
+    const gamesDataShop = JSON.parse(localStorage.getItem('shoppingGames'))
+    const tableContainer = document.getElementById('table-container');
+
+    tableContainer.style.display = "block";
+    // Create a <table> element and a <thead> for the table header.
+    // Create a <table> element if it doesn't already exist.
+    let table = document.querySelector('#table-container > table');
+    if (!table) {
+        table = document.createElement('table');
+        table.style.width = "1000px";
+        tableContainer.appendChild(table);
+    }
+
+
+    // Check if the <thead> already exists, and create it if not.
+    let thead = table.querySelector('thead');
+    if (!thead) {
+        thead = document.createElement('thead');
+        table.appendChild(thead);
+
+        // Create a row for the table header.
+        const headerRow = document.createElement('tr');
+
+        const headers = Object.keys(gamesDataShop[0]);
+        const specificHeader = headers.splice(1, 4);
+        specificHeader.push("Delete")
+
+        specificHeader.forEach((item) => {
+            const th = document.createElement('th');
+            th.textContent = item.toUpperCase();
+            headerRow.appendChild(th);
+        });
+
+        thead.appendChild(headerRow);
+    }
+
+    // Create a <tbody> for the table data.
+    let tbody = table.querySelector('tbody');
+    if (!tbody) {
+        tbody = document.createElement('tbody');
+        table.appendChild(tbody);
+    }
+
+    // Clear any existing rows in the tbody.
+    tbody.innerHTML = '';
+
+    // Loop through the data array to create rows and cells.
+    gamesDataShop.forEach((item) => {
+        const headers = Object.keys(gamesDataShop[0]);
+        const specificHeader = headers.splice(1, 4);
+        const row = document.createElement('tr');
+        row.classList.add('GameShopping');
+        for (const key in item) {
+            if (specificHeader.includes(key)) {
+                const cell = document.createElement('td');
+                cell.classList.add(`${key}`);
+                cell.textContent = item[key];
+                row.appendChild(cell);
+            }
+        }
+        const cellDelete = document.createElement('td');
+        cellDelete.classList.add('deleteGameShop');
+        cellDelete.innerHTML = `<button>Delete</button>`
+        cellDelete.addEventListener('click', deleteVideoGameShop);
+        row.appendChild(cellDelete);
+        tbody.appendChild(row);
+    });
+}
+
+
+const deleteVideoGameShop = (e) => {
+    const gamesDataShop = JSON.parse(localStorage.getItem('shoppingGames'))
+    //Evento del Botón
+    const button = e.target;
+    //Traer la card padre
+    const item = button.parentElement.parentElement;
+    console.log(item)
+    //Traer el nombre del video juego
+    const nameGameData = item.querySelector('.name').textContent.trim().toLowerCase();
+
+    const resultadoIndex = gamesDataShop.findIndex((game) => game.name.toLowerCase() === nameGameData);
+    if (resultadoIndex != -1) {
+        //Borrar el video juego
+        gamesDataShop.splice(resultadoIndex, 1);
+        alert("El producto fue eliminado exitosamente 😊 ")
+        //Actualizar el Local Storage
+        localStorage.setItem('shoppingGames', JSON.stringify(gamesDataShop));
+        //Mostrar los productos restantes
+        createTable()
+    }
+}
 
 //Función para iniciar elementos de la página 
 const starShop = () => {
@@ -214,16 +348,9 @@ const starShop = () => {
     showProducts()
 }
 
-//Espermos que todos los elementos de la página cargen para ejecutar el script
+//Esperemos que todos los elementos de la página cargen para ejecutar el script
 if (document.readyState == 'loading') {
     document.addEventListener('DOMContentLoaded', starShop)
 } else {
     starShop();
 }
-
-
-
-//Posibles tareas
-/*
-1. Apartir del local mostrar las card
-*/

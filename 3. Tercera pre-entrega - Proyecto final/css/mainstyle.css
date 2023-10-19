@@ -207,18 +207,45 @@ video {
   margin-top: 5px;
   font-size: 25px;
 }
-.mainContainer .products .card .addCarGame {
-  border-radius: 20px;
+.mainContainer .products .card .addCarGame,
+.mainContainer .products .card .deleteGame {
+  margin: 10px auto;
+  border-radius: 10px;
   width: 100%;
+}
+.mainContainer .products .card .addCarGameContainer {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.mainContainer .products .card .addCarGameContainer p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
 }
 
 #searchInput {
-  border-radius: 20px;
+  border-radius: 5px;
   width: 200px;
+  padding: 5px;
 }
 
 .addProduct {
   margin-top: 20px;
+}
+
+#table-container table {
+  background-color: #5089C6;
+  width: 100%;
+}
+
+table,
+th,
+td {
+  color: white;
+  border: 1px solid black;
+  text-align: center;
 }
 
 /* Eliminando todos los padding y los margin que vienen por defecto */
