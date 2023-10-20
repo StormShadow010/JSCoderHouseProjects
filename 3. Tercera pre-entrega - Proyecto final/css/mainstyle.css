@@ -224,6 +224,39 @@ video {
   justify-content: center;
   margin-top: 10px;
 }
+.mainContainer .productsCar {
+  background-color: #FFAA4C;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.mainContainer .productsCar .item-car {
+  margin: 5px auto;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: flex-start;
+  width: 100%;
+  flex-direction: row;
+  color: white;
+  border: 20px outset #ff6550;
+}
+.mainContainer .productsCar .item-car .nameShopGame,
+.mainContainer .productsCar .item-car .platformsShopGame,
+.mainContainer .productsCar .item-car .priceShopGame,
+.mainContainer .productsCar .item-car .deleteShopGame {
+  padding: 5px;
+  margin: 5px auto;
+}
+.mainContainer .productsCar .item-car .platformsShopGame,
+.mainContainer .productsCar .item-car .priceShopGame {
+  border-left: dashed red;
+}
+.mainContainer .productsCar .item-car .deleteShopGame {
+  width: 50px;
+  border-radius: 10px;
+}
 
 #searchInput {
   border-radius: 5px;
