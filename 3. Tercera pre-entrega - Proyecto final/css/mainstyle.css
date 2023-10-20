@@ -224,13 +224,13 @@ video {
   justify-content: center;
   margin-top: 10px;
 }
-.mainContainer .productsCar {
+.mainContainer .productsCart {
   background-color: #FFAA4C;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.mainContainer .productsCar .item-car {
+.mainContainer .productsCart .item-cart {
   margin: 5px auto;
   display: flex;
   flex-wrap: nowrap;
@@ -242,18 +242,18 @@ video {
   color: white;
   border: 20px outset #ff6550;
 }
-.mainContainer .productsCar .item-car .nameShopGame,
-.mainContainer .productsCar .item-car .platformsShopGame,
-.mainContainer .productsCar .item-car .priceShopGame,
-.mainContainer .productsCar .item-car .deleteShopGame {
+.mainContainer .productsCart .item-cart .nameShopGame,
+.mainContainer .productsCart .item-cart .platformsShopGame,
+.mainContainer .productsCart .item-cart .priceShopGame,
+.mainContainer .productsCart .item-cart .deleteShopGame {
   padding: 5px;
   margin: 5px auto;
 }
-.mainContainer .productsCar .item-car .platformsShopGame,
-.mainContainer .productsCar .item-car .priceShopGame {
+.mainContainer .productsCart .item-cart .platformsShopGame,
+.mainContainer .productsCart .item-cart .priceShopGame {
   border-left: dashed red;
 }
-.mainContainer .productsCar .item-car .deleteShopGame {
+.mainContainer .productsCart .item-cart .deleteShopGame {
   width: 50px;
   border-radius: 10px;
 }

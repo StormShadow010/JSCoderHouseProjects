@@ -6,7 +6,7 @@ let cuentaTotal = 0;
 //Variable que mantiene el estado visible del carrito
 let shoppingCard = false;
 //Array de las compras del carrito
-const listshopping = localStorage.getItem('shoppingCar') ? JSON.parse(localStorage.getItem('shoppingCar')) : []
+const listshopping = localStorage.getItem('shoppingCart') ? JSON.parse(localStorage.getItem('shoppingCart')) : []
 
 
 //Productos iniciales en la tienda, en el arraglo videoGamesData
@@ -237,8 +237,8 @@ const addCarGameHandler = (e) => {
 
     if (elementGame) {
         listshopping.push(elementGame)
-        localStorage.setItem('shoppingCar', JSON.stringify(listshopping));
-        showProductsCar()
+        localStorage.setItem('shoppingCart', JSON.stringify(listshopping));
+        showProductsCart()
     }
 }
 
@@ -250,41 +250,50 @@ createButton.addEventListener("click", e => {
 
 
 //Función para mostrar la compra
-const showProductsCar = () => {
+const showProductsCart = () => {
     //Traer la data del localStorage
-    const gamesShop = JSON.parse(localStorage.getItem('shoppingCar'))
+    const gamesShop = JSON.parse(localStorage.getItem('shoppingCart'))
     //Contenedor donde se verán  los productos
-    const containerProducts = document.querySelector(".productsCar")
+    const containerProducts = document.querySelector(".productsCart")
+
+
+
     if (gamesShop.length > 0) {
         //Cada vez que se creen nuevos se vacia el contenedor
         containerProducts.innerHTML = "";
+
+        //Título Shop
+        const titleShop = document.createElement("h1")
+        titleShop.classList.add('titleShop');
+        titleShop.textContent = "Shopping Cart";
+        containerProducts.appendChild(titleShop);
+
         //Mostrar contenedor 
         containerProducts.style.display = "flex"
         //Creacion de la card de cada producto en el carrito
         let indiceShopGame = 0
         for (const game of gamesShop) {
-
             //Card de  cada producto
             const cardShop = document.createElement("div");
-            cardShop.classList.add('item-car');
+            cardShop.classList.add('item-cart');
             cardShop.setAttribute('data-index', indiceShopGame);
 
             //Nombre del Video Juego
             const nameShopGame = document.createElement("h1")
             nameShopGame.classList.add('nameShopGame');
-            nameShopGame.textContent = game?.name;
+            nameShopGame.textContent = "Name:" + game?.name;
             cardShop.appendChild(nameShopGame);
 
             //Plataformas del Video Juego
             const platformsShopGame = document.createElement("p")
             platformsShopGame.classList.add('platformsShopGame');
-            platformsShopGame.textContent = game?.platforms;
+            platformsShopGame.textContent = "Platforms:" + game?.platforms;
             cardShop.appendChild(platformsShopGame);
 
             //Precio del Video Juego
             const priceShopGame = document.createElement("p")
             priceShopGame.classList.add('priceShopGame');
-            priceShopGame.textContent = game?.price;
+            priceShopGame.textContent = "Price:" + game?.price;
             cardShop.appendChild(priceShopGame);
 
             //Botón para borrar el Video Juego
@@ -298,6 +307,14 @@ const showProductsCar = () => {
             containerProducts.appendChild(cardShop);
         }
 
+        cuentaTotal = gamesShop.reduce((total, game) => total + (parseFloat(game?.price) || 0), 0);
+
+        //Total $ Shop
+        const priceTotalShop = document.createElement("h1")
+        priceTotalShop.classList.add('priceTotalShop');
+        priceTotalShop.textContent = `Total Games:${gamesShop.length} |$ ${cuentaTotal.toFixed(3)}`;
+        containerProducts.appendChild(priceTotalShop);
+
     } else {
         //Ocular contenedor
         containerProducts.style.display = "none"
@@ -305,8 +322,6 @@ const showProductsCar = () => {
 }
 
 const deleteShopVideoGame = (e) => {
-    //Traer la data del localStorage
-    const gamesShop = JSON.parse(localStorage.getItem('shoppingCar'))
     //Evento del Botón
     const button = e.target;
     //Traer la card padre
@@ -317,9 +332,9 @@ const deleteShopVideoGame = (e) => {
     listshopping.splice(indice, 1);
     alert("El producto fue eliminado exitosamente 😊 ")
     //Actualizar el Local Storage
-    localStorage.setItem('shoppingCar', JSON.stringify(listshopping));
+    localStorage.setItem('shoppingCart', JSON.stringify(listshopping));
     //Mostrar los productos restantes
-    showProductsCar()
+    showProductsCart()
 }
 
 
@@ -329,7 +344,7 @@ const starShop = () => {
     localStorage.setItem('dataVideoGames', JSON.stringify(videoGamesData));
     //Primero mostrar los productos
     showProducts()
-    showProductsCar()
+    showProductsCart()
 }
 
 //Esperemos que todos los elementos de la página cargen para ejecutar el script
