@@ -1,0 +1,70 @@
+.products {
+  margin-top: 30px;
+  color: white;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 30px;
+  grid-row-gap: 30px;
+  width: 100%;
+  transition: 0.3s;
+}
+.products .card {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: auto;
+  margin: 20px auto;
+  background-color: #FFAA4C;
+  border-radius: 12px;
+}
+.products .card .imageCard {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+  overflow: hidden;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+.products .card .imageCard img {
+  object-fit: cover;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.products .card .infoGame {
+  padding: 16px 16px 24px;
+}
+.products .card .infoGame .platformsGame {
+  display: flex;
+  margin-bottom: 7px;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.products .card .infoGame .platformsGame .imagePlatform {
+  filter: invert(100%);
+  margin-right: 6px;
+  line-height: 0;
+  width: 25px;
+  height: auto;
+}
+.products .card .infoGame .titleGame {
+  margin-bottom: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-bottom: 2px;
+  font-weight: 700;
+  font-size: 25px;
+  line-height: 28px;
+  font-weight: 700;
+  margin: 0;
+  color: #fff;
+  text-align: center;
+}
+.products .card .infoGame .titleGame .nameGame {
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=mainstyle.css.map */
