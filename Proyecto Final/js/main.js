@@ -1,3 +1,6 @@
+//Array de las compras del carrito
+const listShoppingCart = localStorage.getItem('shoppingCart') ? JSON.parse(localStorage.getItem('shoppingCart')) : []
+
 //Función para hacer la petición a la API con Fetch 
 const getDataApi = async (page, pageSize) => {
     // Api:https://rawg.io
@@ -100,24 +103,78 @@ const showProducts = () => {
         nameGame.classList.add('nameGame');
         nameGame.textContent = game?.name;
         titleGame.appendChild(nameGame);
-
         infoGame.appendChild(titleGame)
 
+        // Categorias del Video Juego
+        const genresContainer = document.createElement("div");
+        genresContainer.classList.add('genresContainer');
+        const genresArrayTotal = [];
+        const genresGameTotal = game?.genres
+        genresGameTotal.forEach(genre => {
+            genresArrayTotal.push(genre.name)
+        });
+        const genresGame = document.createElement("p")
+        genresGame.classList.add('genresGame');
+        genresGame.textContent = "Genres:" + genresArrayTotal.join(', ');
+        genresContainer.appendChild(genresGame);
+        infoGame.appendChild(genresContainer)
+
+        //Price
+        const priceContainer = document.createElement("div");
+        priceContainer.classList.add('priceContainer');
+        const priceGame = document.createElement("p")
+        priceGame.classList.add('priceGame')
+        priceGame.textContent = `$${(20 + (Math.random() * (50 - 20))).toFixed(3)}`
+        priceContainer.appendChild(priceGame)
+        infoGame.appendChild(priceContainer);
+
+        //Agregar al carrito Video Juego
+        const addCartGameContainer = document.createElement("div")
+        addCartGameContainer.classList.add("addCartGameContainer")
+        const addCartGame = document.createElement("button")
+        addCartGame.classList.add('addCartGame');
+        addCartGame.textContent = "Add";
+        addCartGameContainer.appendChild(addCartGame)
+        addCartGame.addEventListener('click', addCartGameHandler) //
+        infoGame.appendChild(addCartGameContainer);
+        //Agregar toda la info del Video Juego a la Card
         card.appendChild(infoGame)
-
-
-
         //Agregar al contenedor que guarda los video juegos
         mainProducts.appendChild(card);
     }
 }
 
+//Función para agregar al carrito
+const addCartGameHandler = (e) => {
+    e.preventDefault();
+    //Traer la data del localStorage
+    const gamesData = JSON.parse(localStorage.getItem('dataGames'))
+    //Evento del Botón
+    const button = e.target;
+    //Traer la card padre abuelo
+    const item = button.parentElement.parentElement;
+    //Traer el nombre del video juego
+    const nameGameData = item.querySelector('.nameGame').textContent.trim().toLowerCase();
+    //Traer la info del Video Juego Especifico por a partir del nombre
+    const elementGame = gamesData.find((game) => game.name.toLowerCase() === nameGameData);
 
+    if (elementGame) {
+        listShoppingCart.push(elementGame)
+        localStorage.setItem('shoppingCart', JSON.stringify(listShoppingCart));
+
+        const numberShop = document.querySelector('.numberShop');
+        numberShop.textContent = listShoppingCart.length
+
+        // showProductsCart()
+    }
+}
 
 //Función para iniciar elementos de la página 
 const starShop = () => {
     // Llama a la función para hacer la solicitud a la API con la página y tamaño de página deseados
     getDataApi(1, 10) // Ejemplo: página 1, 10 juegos por página
+    const numberShop = document.querySelector('.numberShop');
+    numberShop.textContent = listShoppingCart.length
 }
 
 //Esperemos que todos los elementos de la página cargen para ejecutar el script
