@@ -1,8 +1,11 @@
 //Array de las compras del carrito
 const listShoppingCart = localStorage.getItem('shoppingCart') ? JSON.parse(localStorage.getItem('shoppingCart')) : []
-
+let hasDataFetched = false;
 //Función para hacer la petición a la API con Fetch 
 const getDataApi = async (page, pageSize) => {
+    if (hasDataFetched) {
+        return;
+    }
     // Api:https://rawg.io
     const apiKey = '77beef111ed54b6a991db45248e5998c'; // Reemplaza 'TU_CLAVE_DE_API' con tu clave de API de RAWG
     const apiUrl = 'https://api.rawg.io/api/games';
@@ -28,14 +31,35 @@ const getDataApi = async (page, pageSize) => {
 
         if (data.results.length > 0) {
             const games = data.results;
-            //Agregamos los Video Juegos por defecto en el localStorage
-            localStorage.setItem('dataGames', JSON.stringify(games));
-            showProducts()
+
+            // Comprobar si los precios ya están en el localStorage
+            let storedGames = JSON.parse(localStorage.getItem('dataGames')) || [];
+
+            if (storedGames.length === 0) {
+                // Si no hay precios almacenados, asigna precios aleatorios
+                games.forEach(element => {
+                    element['priceGame'] = (20 + (Math.random() * (50 - 20))).toFixed(3);
+                });
+
+                // Guarda los juegos con precios en localStorage
+                localStorage.setItem('dataGames', JSON.stringify(games));
+            } else {
+                // Si los precios ya están en localStorage, usa esos precios
+                games.forEach(element => {
+                    const storedGame = storedGames.find(game => game.name === element.name);
+                    element['priceGame'] = storedGame ? storedGame.priceGame : 0;
+                });
+            }
+
+            // Muestra los productos
+            showProducts();
         }
 
     } catch (error) {
         console.error('Hubo un error al hacer la solicitud a la API:', error);
     }
+    // Marcar que los datos han sido obtenidos
+    hasDataFetched = true;
 }
 
 //Función para mostrar productos
@@ -124,7 +148,7 @@ const showProducts = () => {
         priceContainer.classList.add('priceContainer');
         const priceGame = document.createElement("p")
         priceGame.classList.add('priceGame')
-        priceGame.textContent = `$${(20 + (Math.random() * (50 - 20))).toFixed(3)}`
+        priceGame.textContent = `$${game.priceGame}`
         priceContainer.appendChild(priceGame)
         infoGame.appendChild(priceContainer);
 
@@ -133,7 +157,7 @@ const showProducts = () => {
         addCartGameContainer.classList.add("addCartGameContainer")
         const addCartGame = document.createElement("button")
         addCartGame.classList.add('addCartGame');
-        addCartGame.textContent = "Add";
+        addCartGame.textContent = "Add to Cart";
         addCartGameContainer.appendChild(addCartGame)
         addCartGame.addEventListener('click', addCartGameHandler) //
         infoGame.appendChild(addCartGameContainer);
@@ -169,18 +193,32 @@ const addCartGameHandler = (e) => {
     }
 }
 
-//Función para iniciar elementos de la página 
-const starShop = () => {
-    // Llama a la función para hacer la solicitud a la API con la página y tamaño de página deseados
-    getDataApi(1, 10) // Ejemplo: página 1, 10 juegos por página
-    const numberShop = document.querySelector('.numberShop');
-    numberShop.textContent = listShoppingCart.length
-}
+//-----Read-----
+//Buscar productos por medio de un input
+const searchProduct = document.getElementById("searchInput")
+searchProduct.addEventListener('keyup', e => {
+    e.preventDefault();
+    e.target.matches('#searchInput') && (
+        document.querySelectorAll('.card').forEach(game => {
+            //Obtener el nombrel de Video Juego
+            const titleGame = game.querySelector(".infoGame").querySelector(".titleGame").querySelector(".nameGame")
+            titleGame.textContent.toLowerCase().includes(e.target.value.toLowerCase()) ? game.style.display = 'flex' : game.style.display = 'none'
+        })
+    )
+})
 
-//Esperemos que todos los elementos de la página cargen para ejecutar el script
-if (document.readyState == 'loading') {
-    document.addEventListener('DOMContentLoaded', starShop)
-} else {
-    starShop();
-}
+//Función para iniciar elementos de la página 
+// const starShop = () => {
+//     // Llama a la función para hacer la solicitud a la API con la página y tamaño de página deseados
+// }
+getDataApi(1, 10) // Ejemplo: página 1, 10 juegos por página
+const numberShop = document.querySelector('.numberShop');
+numberShop.textContent = listShoppingCart.length
+
+// //Esperemos que todos los elementos de la página cargen para ejecutar el script
+// if (document.readyState == 'loading') {
+//     document.addEventListener('DOMContentLoaded', starShop)
+// } else {
+//     starShop();
+// }
 
