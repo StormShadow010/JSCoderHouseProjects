@@ -1,0 +1,108 @@
+/* Fuente Roboto */
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.titleShop {
+    text-align: center;
+    color: white;
+    font-size: 40px;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+.productsCart {
+    margin: 20px;
+    display: grid;
+    justify-content: space-evenly;
+
+
+
+    .item-cart {
+
+
+        display: flex;
+        min-width: 100%;
+        min-height: 0px;
+        margin-top: 5px;
+
+
+        .imageCard {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1 0;
+            min-height: 100%;
+            max-height: 100px;
+
+            img {
+
+                border-radius: 20px;
+                width: 100px;
+                height: 100px;
+                object-fit: fill;
+            }
+        }
+
+        .infoGame {
+            border-radius: 40px;
+            color: white;
+            background-color: #FFAA4C;
+            margin: 20px;
+            padding: 10px;
+            flex: 1 1 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-size: 15px;
+
+            .titleGame {
+                text-align: center;
+            }
+
+            .platformsGame {
+                img {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+
+            .priceGame {
+                margin-top: 10px;
+            }
+
+        }
+
+        .deleteShopGame {
+            background-color: #035397;
+
+
+            img {
+                width: 70px;
+                height: 70px;
+                object-fit: fill;
+            }
+        }
+
+    }
+
+    .priceTotalShop {
+        box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+        color: white;
+        text-align: center;
+    }
+
+    .payShop {
+        font-size: 20px;
+        width: 50%;
+        background-color: #FFAA4C;
+        position: relative;
+        left: 0;
+        right: 0;
+        top: 50;
+        bottom: 0;
+        margin: 20px auto;
+        border-radius: 20px;
+        color: white;
+        font-weight: bolder;
+    }
+}

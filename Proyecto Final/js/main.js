@@ -159,7 +159,7 @@ const showProducts = () => {
         addCartGame.classList.add('addCartGame');
         addCartGame.textContent = "Add to Cart";
         addCartGameContainer.appendChild(addCartGame)
-        addCartGame.addEventListener('click', addCartGameHandler) //
+        addCartGame.addEventListener('click', addCartGameHandler) //Agregar al carrito al dar clic
         infoGame.appendChild(addCartGameContainer);
         //Agregar toda la info del Video Juego a la Card
         card.appendChild(infoGame)
@@ -189,6 +189,22 @@ const addCartGameHandler = (e) => {
         const numberShop = document.querySelector('.numberShop');
         numberShop.textContent = listShoppingCart.length
 
+        Toastify({
+            text: "Added to cart",
+            duration: 3000,
+            gravity: 'top',
+            position: 'right',
+            offset: {
+                x: 10, // horizontal axis - can be a number or a string indicating unity. eg: '2em'
+                y: 10 // vertical axis - can be a number or a string indicating unity. eg: '2em'
+            },
+            style: {
+                background: "linear-gradient(to right, #00b09b, #96c93d)",
+                width: "20%",
+                textAlign: "center"
+            },
+        }).showToast();
+
         // showProductsCart()
     }
 }
@@ -214,6 +230,9 @@ searchProduct.addEventListener('keyup', e => {
 getDataApi(1, 10) // Ejemplo: página 1, 10 juegos por página
 const numberShop = document.querySelector('.numberShop');
 numberShop.textContent = listShoppingCart.length
+
+
+
 
 // //Esperemos que todos los elementos de la página cargen para ejecutar el script
 // if (document.readyState == 'loading') {
