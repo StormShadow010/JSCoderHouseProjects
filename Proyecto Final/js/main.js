@@ -106,7 +106,7 @@ const showProducts = () => {
                 }
             });
         });
-
+        //Escoger plataformas únicas
         const platformsFinal = new Set(platformNames);
         let result = [...platformsFinal];
 
@@ -142,7 +142,6 @@ const showProducts = () => {
         genresGame.textContent = "Genres:" + genresArrayTotal.join(', ');
         genresContainer.appendChild(genresGame);
         infoGame.appendChild(genresContainer)
-
         //Price
         const priceContainer = document.createElement("div");
         priceContainer.classList.add('priceContainer');
@@ -223,17 +222,14 @@ searchProduct.addEventListener('keyup', e => {
     )
 })
 
-//Función para iniciar elementos de la página 
-// const starShop = () => {
-//     // Llama a la función para hacer la solicitud a la API con la página y tamaño de página deseados
-// }
 getDataApi(1, 10) // Ejemplo: página 1, 10 juegos por página
 const numberShop = document.querySelector('.numberShop');
 numberShop.textContent = listShoppingCart.length
 
-
-
-
+//Función para iniciar elementos de la página
+// const starShop = () => {
+//     // Llama a la función para hacer la solicitud a la API con la página y tamaño de página deseados
+// }
 // //Esperemos que todos los elementos de la página cargen para ejecutar el script
 // if (document.readyState == 'loading') {
 //     document.addEventListener('DOMContentLoaded', starShop)

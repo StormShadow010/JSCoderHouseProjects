@@ -1,5 +1,5 @@
 //Array de las compras del carrito
-const listShopping = localStorage.getItem('shoppingCart') ? JSON.parse(localStorage.getItem('shoppingCart')) : []
+let listShopping = localStorage.getItem('shoppingCart') ? JSON.parse(localStorage.getItem('shoppingCart')) : []
 
 //Número de compras que se llevan en el carrito de compras
 const numberShop = document.querySelector('.numberShop');
@@ -106,12 +106,11 @@ const showProductsCart = () => {
         containerProducts.appendChild(priceTotalShop);
 
         //Botón de pagar
-        const payShop = document.createElement("button")
-        payShop.classList.add('payShop');
-        payShop.textContent = `Buy`;
-        containerProducts.appendChild(payShop);
-
-
+        const buyButton = document.createElement('button');
+        buyButton.className = 'payShop btn btn-primary';
+        buyButton.textContent = 'Buy';
+        buyButton.addEventListener('click', buyCartGameHandler)
+        containerProducts.appendChild(buyButton);
     } else {
         //Ocular contenedor
         containerProducts.style.display = "none"
@@ -119,7 +118,21 @@ const showProductsCart = () => {
 
 }
 
+const buyCartGameHandler = (e) => {
+    e.preventDefault();
+    //Vaciar el carrito de compras
+    listShopping = []
+    localStorage.setItem('shoppingCart', JSON.stringify(listShopping));
+    //Actualizar el valor del carrito de compra
+    numberShop.textContent = listShopping.length
+    showProductsCart()
+    // Activa el modal
+    var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
+    myModal.show();
+}
+
 const deleteShopVideoGame = (e) => {
+    e.preventDefault();
     //Evento del Botón
     const button = e.target;
     //Traer la card padre
@@ -152,7 +165,5 @@ const deleteShopVideoGame = (e) => {
     showProductsCart()
 }
 
-//Modal boostrap
-
-
 showProductsCart()
+
